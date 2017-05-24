@@ -69,10 +69,10 @@ int main(int argc, char *argv[]){
 			int size_h = count/40;
 			int max_h = 4;
 			int loop_sth = MAX(half_h - MIN(size_h, max_h), 0);
-			int loop_edh = MIN(half_h + MIN(size_h, max_h), cs.height);
+			int loop_edh = MIN(half_h + MIN(size_h, max_h) - 1, cs.height);
 			int text_lg = strlen(showtext);
-			add_sprintf(OUTPUT, "\033[%d;%dH", loop_sth+1, 1);
 			for(j = loop_sth; j < loop_edh; j++){
+				add_sprintf(OUTPUT, "\033[%d;%dH", j+1, 1);
 				for(i=0; i < cs.width; i++){
 					printchar('X', black);
 				}
@@ -93,7 +93,6 @@ int main(int argc, char *argv[]){
 				}
 			}
 		}
-		strcat(OUTPUT, "\033[1E");
 		add_sprintf(OUTPUT, "\033[%d;%dH", cs.height, cs.width);
 		// show and wait
 		fprintf(stderr, OUTPUT);
